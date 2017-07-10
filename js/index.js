@@ -74,6 +74,8 @@ MathGame.prototype.displayThirdNumber = function () {
 }
 
 
+
+
 //old code re-write and then delete
 /*MathGame.prototype.displayNumber = function() {
   var that = this;
