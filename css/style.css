@@ -28,3 +28,11 @@
   border-radius: 5px;
   font-size: 36px;
 }
+
+.temp-correctanswer {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 36px;
+}

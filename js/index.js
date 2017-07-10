@@ -39,9 +39,9 @@ MathGame.prototype.displayFirstNumber = function(){
   $(".temp-cardtoremember").text(this.cardToRemember);
   $(".temp-cardtoadd").text(this.cardToAdd);
 
-  console.log("1cardVisible = " + this.cardVisible);
-  console.log("1cardToRemember = " + this.cardToRemember);
-  console.log("1cardToAdd = " + this.cardToAdd);
+  // console.log("1cardVisible = " + this.cardVisible);
+  // console.log("1cardToRemember = " + this.cardToRemember);
+  // console.log("1cardToAdd = " + this.cardToAdd);
 }
 
 //display 2nd card and set initial value to cardToRemember
@@ -53,71 +53,33 @@ MathGame.prototype.displaySecondNumber = function () {
   $(".temp-cardtoremember").text(this.cardToRemember);
   $(".temp-cardtoadd").text(this.cardToAdd);
 
-  console.log("2cardVisible = " + this.cardVisible);
-  console.log("2cardToRemember = " + this.cardToRemember);
-  console.log("2cardToAdd = " + this.cardToAdd);
+  // console.log("2cardVisible = " + this.cardVisible);
+  // console.log("2cardToRemember = " + this.cardToRemember);
+  // console.log("2cardToAdd = " + this.cardToAdd);
 }
 
 //display 3nd card and set initial value to cardToAdd
+//calculated correctAnswer as well
 MathGame.prototype.displayThirdNumber = function () {
   var that = this;
   this.cardToAdd = this.cardToRemember;
   this.cardToRemember = this.cardVisible;
   this.cardVisible = MathGame.prototype.generateNumber();
+  this.correctAnswer = this.cardToAdd + this.cardVisible;
   $(".number-turn").text(this.cardVisible);
   $(".temp-cardtoremember").text(this.cardToRemember);
   $(".temp-cardtoadd").text(this.cardToAdd);
+  $(".temp-correctanswer").text(this.correctAnswer);
+
 
   console.log("3cardVisible = " + this.cardVisible);
   console.log("3cardToRemember = " + this.cardToRemember);
   console.log("3cardToAdd = " + this.cardToAdd);
+  console.log("3correctAnswer = " + this.correctAnswer);
 }
 
 
 
-
-//old code re-write and then delete
-/*MathGame.prototype.displayNumber = function() {
-  var that = this;
-  this.cardVisible = MathGame.prototype.generateNumber = function() {
-    $('number-turn').show(this.cardVisible);
-    $(document).keypress(function(e) {
-      if(e.which == 13) {
-          $('.number-turn').toggle(that.cardVisible);
-          that.cardToRemember = that.cardVisible;
-          that.cardVisible = MathGame.prototype.generateNumber = function() {
-            return that.cardToRemember;
-
-            setTimeout(function(){
-               $('.number-turn').toggle(that.cardVisible);;
-            }, 3000);
-         };
-      };
-
-      $(document).keypress(function(f) {
-        if(f.which == 13) {
-          $('.number-turn').toggle(that.cardVisible);
-          that.cardToAdd = that.cardToRemember;
-          that.cardToRemember = that.cardVisible;
-
-          that.cardVisible = MathGame.prototype.generateNumber = function() {
-
-            setTimeout(function(){
-               $('.number-turn').toggle(that.cardVisible);;
-             }, 3000);
-          };
-        };
-      });
-    });
-  };
-};
-*/
-//end old code
-
-    // show this.cardVisible,
-    // if !cardToRemember
-    //   else if !cardToAdd
-    //   else ....
     // press "Enter"
     // this.cardToRemember = this.cardVisible
 // MathGame.prototype.playerTurn = function ( {
