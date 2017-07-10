@@ -1,0 +1,30 @@
+.number-turn {
+  width: 180px;
+  height: 180px;
+  border-radius: 5px;
+  background-color: teal;
+  padding: 10px;
+  font-size: 36px;
+}
+
+.js-score {
+  font-family: Courier;
+  font-size: 24px;
+  color: blue;
+}
+
+.temp-cardtoremember {
+  width: 200px;
+  height: 200px;
+  background-color: green;
+  border-radius: 10px;
+  font-size: 36px;
+}
+
+.temp-cardtoadd {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 36px;
+}
