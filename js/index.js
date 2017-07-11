@@ -1,49 +1,88 @@
 var MathGame = function() {
-  this.cardToAdd = null;
-  this.cardToRemember = null;
-  this.cardVisible = null;
+  this.cards = [];
   this.correctAnswer = null;
   this.playerAnswer = null;
   this.playerScore = 0;
   this.player1Score = 0;
   this.player2Score = 0;
   this.winner = '';
-
-}
-
-/*random numbers generated for: this.cardVisible*/
-MathGame.prototype.generateNumber = function() {
-  this.cardVisible = Math.floor(Math.random() * 10);
-  return this.cardVisible;
+  this.player1phase = true;
+  this.player2phase = false;
+  this.carriageReturnPhase1 = true;
+  this.carriageReturnPhase2 = false;
+  this.carriageReturnPhase3 = false;
+  this.carriageReturnPhase4 = false;
 };
+
+//random number generator
+MathGame.prototype.generateNumber = function() {
+    return Math.floor(Math.random() * 10);
+  };
+
+//Function adding random number to cards[]
+MathGame.prototype.addNumber = function() {
+  this.cards.unshift(this.generateNumber());
+};
+
+//Function removing last item in array
+MathGame.prototype.removeNumber = function() {
+  this.cards.pop();
+};
+
+//Function setting game play phase
+MathGame.prototype.setPlayPhase = function() {
+  if (this.cards.length === 0) {
+      this.carriageReturnPhase1 = true;
+      this.carriageReturnPhase2 = false;
+      this.carriageReturnPhase3 = false;
+      this.carriageReturnPhase4 = false;
+  } else if (this.cards.length === 1) {
+    this.carriageReturnPhase1 = false;
+    this.carriageReturnPhase2 = true;
+    this.carriageReturnPhase3 = false;
+    this.carriageReturnPhase4 = false;
+  } else if (this.cards.length === 2 && !this.correctAnswer) {
+    this.carriageReturnPhase1 = false;
+    this.carriageReturnPhase2 = false;
+    this.carriageReturnPhase3 = true;
+    this.carriageReturnPhase4 = false;
+  } else {
+    this.carriageReturnPhase1 = false;
+    this.carriageReturnPhase2 = false;
+    this.carriageReturnPhase3 = false;
+    this.carriageReturnPhase4 = true;
+  }
+
+};
+
 
 //display initial card => this.cardVisible
 //later change this to load after clicking a button "Click to start"
 
 MathGame.prototype.displayFirstNumber = function(){
   var that = this;
-  $(".number-turn").text(this.cardVisible);
-  $(".temp-cardtoremember").text(this.cardToRemember);
-  $(".temp-cardtoadd").text(this.cardToAdd);
+  this.setPlayPhase();
+  $(".number-turn").text(this.cards[0]);
+  $(".temp-cardtoremember").text(this.cards[1]);
+  $(".temp-cardtoadd").text(this.cards[2]);
 
   setTimeout(function () {
     $('div.hidden').fadeIn(1500).removeClass('hidden');
   }, 750);
 
 
-  // console.log("1cardVisible = " + this.cardVisible);
-  // console.log("1cardToRemember = " + this.cardToRemember);
-  // console.log("1cardToAdd = " + this.cardToAdd);
+  // console.log("1cardVisible = " + this.card[0]);
+  // console.log("1cardToRemember = " + this.cards[1]);
+  // console.log("1cardToAdd = " + this.cards[2]);
 };
 
 //display 2nd card and set this.cardVisible value to this.cardToRemember
 MathGame.prototype.displaySecondNumber = function () {
   var that = this;
-  this.cardToRemember = this.cardVisible;
-  this.cardVisible = MathGame.prototype.generateNumber();
-  $(".number-turn").text(this.cardVisible);
-  $(".temp-cardtoremember").text(this.cardToRemember);
-  $(".temp-cardtoadd").text(this.cardToAdd);
+  this.cards.unshift(this.generateNumber());
+  $(".number-turn").text(this.cards[0]);
+  $(".temp-cardtoremember").text(this.cards[1]);
+  $(".temp-cardtoadd").text(this.cards[2]);
 
 
   setTimeout(function () {
@@ -58,31 +97,30 @@ MathGame.prototype.displaySecondNumber = function () {
 //calculated correctAnswer as well
 MathGame.prototype.displayThirdNumber = function () {
   var that = this;
-  this.cardToAdd = this.cardToRemember;
-  this.cardToRemember = this.cardVisible;
-  this.cardVisible = MathGame.prototype.generateNumber();
-  this.correctAnswer = this.cardToAdd + this.cardVisible;
-  $(".number-turn").text(this.cardVisible);
-  $(".temp-cardtoremember").text(this.cardToRemember);
-  $(".temp-cardtoadd").text(this.cardToAdd);
+  this.cards.unshift(this.generateNumber());
+  this.correctAnswer = this.cards[0] + this.cards[2];
+  $(".number-turn").text(this.cards[0]);
+  $(".temp-cardtoremember").text(this.cards[1]);
+  $(".temp-cardtoadd").text(this.cards[2]);
   $(".temp-correctanswer").text(this.correctAnswer);
 
 
-  console.log("3cardVisible = " + this.cardVisible);
-  console.log("3cardToRemember = " + this.cardToRemember);
-  console.log("3cardToAdd = " + this.cardToAdd);
+  console.log("3cardVisible = " + this.cards[0]);
+  console.log("3cardToRemember = " + this.cards[1]);
+  console.log("3cardToAdd = " + this.cards[2]);
   console.log("3correctAnswer = " + this.correctAnswer);
 }
 
-$(document).keydown(function(e) {
-  switch(e.which) {
-      case 13: // carriage return
-        that.displaySecondNumber();
-        break;
-
-      default: return; // exit this handler for other keys
-    };
-  });
+//Script for carriage return in phase1 and phase2
+// $(document).keydown(function(e) {
+//   switch(e.which) {
+//       case 13: // carriage return
+//         that.displaySecondNumber();
+//         break;
+//
+//       default: return; // exit this handler for other keys
+//     };
+//   });
 
     // press "Enter"
     // this.cardToRemember = this.cardVisible
