@@ -2,7 +2,7 @@
   width: 180px;
   height: 180px;
   border-radius: 5px;
-  background-color: teal;
+  background-color: #edd1eb;
   padding: 10px;
   font-size: 36px;
 }
@@ -16,7 +16,7 @@
 .temp-cardtoremember {
   width: 200px;
   height: 200px;
-  background-color: green;
+  background-color: #d1ebed;
   border-radius: 10px;
   font-size: 36px;
 }
@@ -24,6 +24,7 @@
 .temp-cardtoadd {
   width: 200px;
   height: 200px;
+  background-color: #edd3d1;
   border: 1px solid black;
   border-radius: 5px;
   font-size: 36px;
@@ -35,4 +36,14 @@
   border: 1px solid black;
   border-radius: 5px;
   font-size: 36px;
+}
+
+.press-enter {
+  font-family: Arial;
+  font-size: 24px;
+  color: gray;
+}
+
+.hidden {
+  visibility: hidden;
 }

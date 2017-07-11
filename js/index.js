@@ -2,8 +2,8 @@ var MathGame = function() {
   this.cardToAdd = null;
   this.cardToRemember = null;
   this.cardVisible = null;
-  this.correctAnswer = 0;
-  this.playerAnswer = 0;
+  this.correctAnswer = null;
+  this.playerAnswer = null;
   this.playerScore = 0;
   this.player1Score = 0;
   this.player2Score = 0;
@@ -11,26 +11,13 @@ var MathGame = function() {
 
 }
 
-//random number generator
-MathGame.prototype.selectNumber = function() {
-    return Math.floor(Math.random() * 10);
-  };
-
 /*random numbers generated for: this.cardVisible*/
-
 MathGame.prototype.generateNumber = function() {
-  this.cardVisible = MathGame.prototype.selectNumber();
+  this.cardVisible = Math.floor(Math.random() * 10);
   return this.cardVisible;
 };
 
-// MathGame.prototype._renderBoard = function () {
-//  var that = this;
-//  $('.js-score').text(this.playerScore);
- //$('input').each(function(??) {});
-//
-// };
-
-//display initial card
+//display initial card => this.cardVisible
 //later change this to load after clicking a button "Click to start"
 
 MathGame.prototype.displayFirstNumber = function(){
@@ -39,12 +26,17 @@ MathGame.prototype.displayFirstNumber = function(){
   $(".temp-cardtoremember").text(this.cardToRemember);
   $(".temp-cardtoadd").text(this.cardToAdd);
 
+  setTimeout(function () {
+    $('div.hidden').fadeIn(1500).removeClass('hidden');
+  }, 750);
+
+
   // console.log("1cardVisible = " + this.cardVisible);
   // console.log("1cardToRemember = " + this.cardToRemember);
   // console.log("1cardToAdd = " + this.cardToAdd);
-}
+};
 
-//display 2nd card and set initial value to cardToRemember
+//display 2nd card and set this.cardVisible value to this.cardToRemember
 MathGame.prototype.displaySecondNumber = function () {
   var that = this;
   this.cardToRemember = this.cardVisible;
@@ -53,6 +45,10 @@ MathGame.prototype.displaySecondNumber = function () {
   $(".temp-cardtoremember").text(this.cardToRemember);
   $(".temp-cardtoadd").text(this.cardToAdd);
 
+
+  setTimeout(function () {
+      $('div.hidden').fadeIn(1500).removeClass('hidden');
+  }, 750);
   // console.log("2cardVisible = " + this.cardVisible);
   // console.log("2cardToRemember = " + this.cardToRemember);
   // console.log("2cardToAdd = " + this.cardToAdd);
@@ -78,7 +74,15 @@ MathGame.prototype.displayThirdNumber = function () {
   console.log("3correctAnswer = " + this.correctAnswer);
 }
 
+$(document).keydown(function(e) {
+  switch(e.which) {
+      case 13: // carriage return
+        that.displaySecondNumber();
+        break;
 
+      default: return; // exit this handler for other keys
+    };
+  });
 
     // press "Enter"
     // this.cardToRemember = this.cardVisible
