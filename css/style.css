@@ -1,10 +1,22 @@
 .number-turn {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 5px;
   background-color: #edd1eb;
   padding: 10px;
-  font-size: 36px;
+  font-size: 84px;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .js-score {
@@ -15,7 +27,7 @@
 
 .temp-cardtoremember {
   width: 200px;
-  height: 200px;
+  height: 100px;
   background-color: #d1ebed;
   border-radius: 10px;
   font-size: 36px;
@@ -23,7 +35,7 @@
 
 .temp-cardtoadd {
   width: 200px;
-  height: 200px;
+  height: 100px;
   background-color: #edd3d1;
   border: 1px solid black;
   border-radius: 5px;
@@ -32,7 +44,7 @@
 
 .temp-correctanswer {
   width: 200px;
-  height: 200px;
+  height: 100px;
   border: 1px solid black;
   border-radius: 5px;
   font-size: 36px;
@@ -46,4 +58,9 @@
 
 .hidden {
   visibility: hidden;
+}
+
+#timer {
+  font-family: Tahoma;
+  font-size: 44px;
 }

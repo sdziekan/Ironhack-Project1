@@ -9,6 +9,7 @@ var MathGame = function() {
   this.player1phase = true;
   this.player2phase = false;
   this.carriageReturnPhase = 1;
+  this.timerVal = 1;
 };
 
 //Function adding random number to cards[]
@@ -101,6 +102,7 @@ MathGame.prototype.displayNumber = function(){
         $(".temp-cardtoremember").text(this.cards[1]);
         $(".temp-cardtoadd").text(this.cards[2]);
         $(".temp-correctanswer").text(this.correctAnswer);
+        $(".js-score").text(this.playerScore);
   };
 };
 
@@ -115,6 +117,26 @@ $(document).keydown(function(e) {
       default: return; // exit this handler for other keys
     };
   });
+
+//template 2 begins
+  var i = .01;
+  var intervalId = setInterval(function () {
+    this.timerVal = i;
+
+//    console.log(i);
+    $("#timer").text(this.timerVal.toFixed(2));
+    i+=0.01;
+
+    if (i > 10) {
+      clearInterval(intervalId);
+    }
+  }, 10);
+//template 2 ends
+
+
+//$(".timer").text(this.intervalId)
+
+
 
 
     // hide this.cardVisible (fade out)
@@ -142,4 +164,4 @@ $(document).keydown(function(e) {
 
 
 var g = new MathGame();
-console.log(g.generateNumber());
+//console.log(g.generateNumber());
