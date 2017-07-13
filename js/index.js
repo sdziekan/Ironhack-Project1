@@ -1,3 +1,5 @@
+//$('document').ready(function(){
+
 var MathGame = function() {
   this.cards = [];
   this.correctAnswer = null;
@@ -87,47 +89,54 @@ MathGame.prototype.displayNumber = function(){
       break;
 
       default:
-        this.timerVal--;
-        this.playerAnswer = prompt("Enter a number");
-        if (this.playerAnswer == this.correctAnswer ) {
-          this.playerScore += 1;
-          this.addNumber();
-          this.removeNumber();
-          this.correctAnswer = this.cards[0] + this.cards[2];
-          $(".number-turn").text(this.cards[0]);
-          $(".temp-cardtoremember").text(this.cards[1]);
-          $(".temp-cardtoadd").text(this.cards[2]);
-          $(".temp-correctanswer").text(this.correctAnswer);
-          $(".js-score").text(this.playerScore);
-          $('.temp-carriage-return-class').text(this.carriageReturnPhase);
+      $("#button").click(function(){
+        this.playerAnswer = $("#number").val();
+        $("#number").val('');
+      })
 
-        } else {
-          this.addNumber();
-          this.removeNumber();
-          this.correctAnswer = this.cards[0] + this.cards[2];
-          $(".number-turn").text(this.cards[0]);
-          $(".temp-cardtoremember").text(this.cards[1]);
-          $(".temp-cardtoadd").text(this.cards[2]);
-          $(".temp-correctanswer").text(this.correctAnswer);
-          $(".js-score").text(this.playerScore);
-          $('.temp-carriage-return-class').text(this.carriageReturnPhase);
-        }
+        $('#form1').css({'visibility': 'visible', 'opacity': '1'});
 
-        if (this.timerVal != 0) {
-            this.displayNumber()
-        } else {
-          if (this.player1phase === true) {
-            this.player1Score += this.playerScore;
+        // this.timerVal = setInterval(function(){
+        //   if (this.timerVal == 0){
+        //     clearInterval(this.timerVal);
+        //     $('.reponse').html("Player turn over");
+        //     $('#form1').css({'visibility': 'hidden', 'opacity': '0'});
+        //     player1phase = false;
+        //   }
+        //   else if (player1phase) {
+        //     this.timerVal--;
+        //     $('.timer').html(this.timerVal);
+        //   }
+        //   else {
+        //     clearInterval(this.timerVal);
+        //     $('#form1').css({'visibility': 'hidden', 'opacity': '0'});
+        //   }
+        // }, 1000);
+
+        if (this.player1phase){
+          this.playerAnswer = $('#number').val();
+
+          if (this.playerAnswer == this.correctAnswer){
+            this.playerScore += 1;
+            this.addNumber();
+            this.removeNumber();
+            this.correctAnswer = this.cards[0] + this.cards[2];
           } else {
-            this.player2Score += this.playerScore;
+            this.addNumber();
+            this.removeNumber();
+            this.correctAnswer = this.cards[0] + this.cards[2];
           }
-
-          this.playerScore = 0;
-          this.correctAnswer = null;
-          this.playerAnswer = null;
         }
+        $(".number-turn").text(this.cards[0]);
+        $(".temp-cardtoremember").text(this.cards[1]);
+        $(".temp-cardtoadd").text(this.cards[2]);
+        $(".temp-correctanswer").text(this.correctAnswer);
+        $(".js-score").text(this.playerScore);
+        $('.temp-carriage-return-class').text(this.carriageReturnPhase);
+
+      }
   };
-};
+
 
 
 //Script for carriage return in phase1 and phase2
@@ -141,25 +150,25 @@ MathGame.prototype.displayNumber = function(){
 //     };
 //   });
 
-  $(document).keydown(function(e) {
-    var that = this;
-
-    switch(e.which) {
-      case 13: // carriage return
-        if (that.carriageReturnPhase === 1) {
-            console.log('phase 1');
-            that.displayNumber();
-        } else {
-          console.log(g.carriageReturnPhase)
-        };
-      break;
-
-      default:
-      console.log('wtf?')
-      return; // exit this handler for other keys
-
-    };
-  });
+  // $(document).keydown(function(e) {
+  //   var that = this;
+  //
+  //   switch(e.which) {
+  //     case 13: // carriage return
+  //       if (that.carriageReturnPhase === 1) {
+  //           console.log('phase 1');
+  //           that.displayNumber();
+  //       } else {
+  //         console.log(g.carriageReturnPhase)
+  //       };
+  //     break;
+  //
+  //     default:
+  //     console.log('wtf?')
+  //     return; // exit this handler for other keys
+  //
+  //   };
+  // });
 
 
 //Timer
@@ -225,3 +234,5 @@ $('#advance-cards').click(function(){
 
 var g = new MathGame();
 //console.log(g.generateNumber());
+
+//});
