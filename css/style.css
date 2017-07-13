@@ -54,13 +54,57 @@
   font-family: Arial;
   font-size: 24px;
   color: gray;
+  display: flex;
+  height: 40px;
+  width: 300px;
+  border: 2px solid #191970;
+  background-color: #ffffff;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.fade {
+  visibility: hidden;
 }
 
 .hidden {
   visibility: hidden;
+  opacity: 0;
 }
 
 #timer {
   font-family: Tahoma;
   font-size: 44px;
+}
+
+.temp-carriage-return-class {
+  font-family: Arial;
+  font-size: 24px;
+  color: red;
+  height: 100px;
+  width: 100px;;
+}
+
+.landing {
+  display: flex;
+  height: 300px;
+  width: 300px;
+  border: 1px solid #000080;
+  background-color: #00ffff;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.button {
+  display: flex;
+  height: 40px;
+  width: 125px;
+  border: 2px solid #191970;
+  background-color: #ffffff;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#playgame2 {
+  background-color: gray;
 }

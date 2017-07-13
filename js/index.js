@@ -9,7 +9,7 @@ var MathGame = function() {
   this.player1phase = true;
   this.player2phase = false;
   this.carriageReturnPhase = 1;
-  this.timerVal = 1;
+  this.timerVal = 15;
 };
 
 //Function adding random number to cards[]
@@ -51,9 +51,10 @@ MathGame.prototype.displayNumber = function(){
       $(".number-turn").text(this.cards[0]);
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
+      $('.temp-carriage-return-class').text(this.carriageReturnPhase);
 
       setTimeout(function () {
-        $('div.hidden').fadeIn(1500).removeClass('hidden');
+        $('div.fade').fadeIn(1500).removeClass('fade');
       }, 750);
 
       this.carriageReturnPhase += 1;
@@ -64,9 +65,10 @@ MathGame.prototype.displayNumber = function(){
       $(".number-turn").text(this.cards[0]);
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
+      $('.temp-carriage-return-class').text(this.carriageReturnPhase);
 
       setTimeout(function () {
-        $('div.hidden').fadeIn(1500).removeClass('hidden');
+        $('div.fade').fadeIn(1500).removeClass('fade');
       }, 750);
 
       this.carriageReturnPhase += 1;
@@ -79,47 +81,92 @@ MathGame.prototype.displayNumber = function(){
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
       $(".temp-correctanswer").text(this.correctAnswer);
+      $('.temp-carriage-return-class').text(this.carriageReturnPhase);
 
       this.carriageReturnPhase += 1;
       break;
 
       default:
+        this.timerVal--;
         this.playerAnswer = prompt("Enter a number");
-        if (this.playerAnswer === this.correctAnswer ) {
-          this.playerScore += 1;
-        }
         if (this.playerAnswer == this.correctAnswer ) {
           this.playerScore += 1;
+          this.addNumber();
+          this.removeNumber();
+          this.correctAnswer = this.cards[0] + this.cards[2];
+          $(".number-turn").text(this.cards[0]);
+          $(".temp-cardtoremember").text(this.cards[1]);
+          $(".temp-cardtoadd").text(this.cards[2]);
+          $(".temp-correctanswer").text(this.correctAnswer);
+          $(".js-score").text(this.playerScore);
+          $('.temp-carriage-return-class').text(this.carriageReturnPhase);
+
+        } else {
+          this.addNumber();
+          this.removeNumber();
+          this.correctAnswer = this.cards[0] + this.cards[2];
+          $(".number-turn").text(this.cards[0]);
+          $(".temp-cardtoremember").text(this.cards[1]);
+          $(".temp-cardtoadd").text(this.cards[2]);
+          $(".temp-correctanswer").text(this.correctAnswer);
+          $(".js-score").text(this.playerScore);
+          $('.temp-carriage-return-class').text(this.carriageReturnPhase);
         }
 
-        this.addNumber();
-        this.removeNumber();
-        this.correctAnswer = this.cards[0] + this.cards[2];
+        if (this.timerVal != 0) {
+            this.displayNumber()
+        } else {
+          if (this.player1phase === true) {
+            this.player1Score += this.playerScore;
+          } else {
+            this.player2Score += this.playerScore;
+          }
 
-
-
-        $(".number-turn").text(this.cards[0]);
-        $(".temp-cardtoremember").text(this.cards[1]);
-        $(".temp-cardtoadd").text(this.cards[2]);
-        $(".temp-correctanswer").text(this.correctAnswer);
-        $(".js-score").text(this.playerScore);
+          this.playerScore = 0;
+          this.correctAnswer = null;
+          this.playerAnswer = null;
+        }
   };
 };
 
 
 //Script for carriage return in phase1 and phase2
-$(document).keydown(function(e) {
-  switch(e.which) {
-      case 13: // carriage return
-        that.displaySecondNumber();
-        break;
+// $(document).keydown(function(e) {
+//   switch(e.which) {
+//       case 13: // carriage return
+//         that.displaySecondNumber();
+//         break;
+//
+//       default: return; // exit this handler for other keys
+//     };
+//   });
 
-      default: return; // exit this handler for other keys
+  $(document).keydown(function(e) {
+    var that = this;
+
+    switch(e.which) {
+      case 13: // carriage return
+        if (that.carriageReturnPhase === 1) {
+            console.log('phase 1');
+            that.displayNumber();
+        } else {
+          console.log(g.carriageReturnPhase)
+        };
+      break;
+
+      default:
+      console.log('wtf?')
+      return; // exit this handler for other keys
+
     };
   });
 
-//template 2 begins
-  var i = .01;
+
+//Timer
+//still need to activate on keystroke and not page load
+//still need to change player turn state upon completion
+//still need to update player score upon completion
+/*  var i = 1;
   var intervalId = setInterval(function () {
     this.timerVal = i;
 
@@ -127,11 +174,24 @@ $(document).keydown(function(e) {
     $("#timer").text(this.timerVal.toFixed(2));
     i+=0.01;
 
-    if (i > 10) {
+    if (i >= 5) {
+      g.player1phase = !g.player1phase;
+//      $(this.player2phase).toggle();
+
       clearInterval(intervalId);
     }
-  }, 10);
+  }, 10);*/
 //template 2 ends
+
+$('#playgame1').click(function(){
+  $('.landing').css({'visibility': 'hidden', 'opacity': '0'});
+  $('.hidden').css({'visibility': 'visible', 'opacity': '1'});
+});
+
+$('#advance-cards').click(function(){
+    var that = this;
+    g.displayNumber();
+  });
 
 
 //$(".timer").text(this.intervalId)
