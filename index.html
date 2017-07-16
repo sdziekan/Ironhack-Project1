@@ -6,8 +6,22 @@
     <meta charset="UTF-8">
     <title>Salvatore Math</title>
     <link rel='stylesheet' href="css/style.css ">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
   </head>
   <body>
+    <div class="landing-image">
+      <div class="landing landing-container">
+        <div class="landing-text">
+          <h1>Welcome to Math Game</br>How Many Players?</h1>
+        </div>
+      </div>
+      <div class="landing-button">
+        <button type="button" id="playgame1" class="button landing"><b>1 Player</b></button>
+        <button type="button" id="playgame2" class="button landing"><b>2 Player</b></button>
+      </div>
+    </div>
+
+      <div id="timer" class="hidden">00 </div>
     <div class="number-turn container hidden">number turn</div>
     <button type='button' id="advance-cards" class="press-enter fade hidden">Click for Next Card</button>
     <div class="temp-cardtoremember hidden"></div>
@@ -29,15 +43,17 @@
 
 
     <div class="js-score hidden">test score </div>
-    <div id="timer hidden">00 </div>
-    <div class="landing">
-      <h1>Welcome to Math Game</br>How Many Players?</h1>
-      <button type="button" id="playgame1" class="button landing"><b>1 Player</b></button>
-      <button type="button" id="playgame2" class="button landing"><b>2 Player</b></button>
+
+    <div class="winner-display">
+        <div class="winner-text">
+      <h1>WINNER:</h1>
     </div>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/cards.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+
   </body>
 </html>

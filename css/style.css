@@ -1,5 +1,10 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+}
+
+
 .number-turn {
-  width: 200px;
+  width: 50%;
   height: 200px;
   border-radius: 5px;
   background-color: #edd1eb;
@@ -10,19 +15,22 @@
   color: white;
   position: absolute;
   top: 15%;
-  left: 50%;
+  left: 25%;
+  right: 25%;
+}
+
+.js-score {
+  font-size: 24px;
+  color: blue;
+  position: absolute;
+  top: 10%;
+  right: 25%;
 }
 
 .container {
   display: flex;
   justify-content: center;
   flex-direction: row;
-}
-
-.js-score {
-  font-family: Courier;
-  font-size: 24px;
-  color: blue;
 }
 
 .temp-cardtoremember {
@@ -51,7 +59,6 @@
 }
 
 .press-enter {
-  font-family: Arial;
   font-size: 24px;
   color: gray;
   display: flex;
@@ -73,12 +80,23 @@
 }
 
 #timer {
-  font-family: Tahoma;
   font-size: 44px;
+  position: absolute;
+  top: 5%;
+  left: 25%;
+}
+
+#form1 {
+  position: absolute;
+  top: 340px;
+  left: 28%;
+}
+
+#form1 {
+  visibility: hidden;
 }
 
 .temp-carriage-return-class {
-  font-family: Arial;
   font-size: 24px;
   color: red;
   height: 100px;
@@ -88,7 +106,11 @@
 .landing {
   display: flex;
   height: 300px;
-  width: 300px;
+  top: 250px;
+  align-content: center;
+  align-self: auto;
+  align-items: center;
+  width: auto;
   border: 1px solid #000080;
   background-color: #00ffff;
   text-align: center;
@@ -98,13 +120,65 @@
 .button {
   display: flex;
   height: 40px;
-  width: 125px;
+  width: 250px;
   border: 2px solid #191970;
   background-color: #ffffff;
   border-radius: 15px;
   text-align: center;
 }
 
+.landing-text {
+  text-align: center;
+  width: 100%;
+}
+
+.landing-container {
+  margin: 100px 25% 25px;
+}
+
+#playgame1 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 24px;
+  display: inline-block;
+  flex-wrap: wrap;
+  border: 2px solid #191970;
+  background-color: #ffffff;
+  border-radius: 15px;
+  text-align: center;
+  clear: both;
+  margin: 0 10% 0 10%;
+  flex: 0 0 30%;
+}
+
 #playgame2 {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 24px;
+  display: inline-block;
   background-color: gray;
+  margin: 0 10% 0 10%;
+  flex: 0 0 30%;
+}
+
+.landing-button {
+  display: flex;
+  align-items: center;
+}
+
+.winner-display {
+  visibility: hidden;
+  background-color: DeepSkyBlue;
+  opacity: 0.7;
+  height: 90%;
+  width: 90%;
+  margin: 5%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  border: 3px solid black;
+}
+
+.winner-text {
+    font-size: 80px;
+    text-align: center;
+    color: black;
 }

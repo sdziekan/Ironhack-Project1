@@ -31,7 +31,7 @@ MathGame.prototype.setPlayPhase = function() {
       this.carriageReturnPhase = 1;
   } else if (this.cards.length === 1) {
     this.carriageReturnPhase = 2;
-  } else if (this.cards.length === 2 && !this.correctAnswer) {
+  } else if (this.cards.length === 2) {
     this.carriageReturnPhase = 3;
   } else {
     this.carriageReturnPhase = 4;
@@ -51,9 +51,10 @@ MathGame.prototype.displayNumber = function(){
     case 1:
       this.addNumber();
       $(".number-turn").text(this.cards[0]);
+      $(".number-turn").css("color", "red");
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
-      $('.temp-carriage-return-class').text(this.carriageReturnPhase);
+      $(".temp-carriage-return-class").text(this.carriageReturnPhase);
 
       setTimeout(function () {
         $('div.fade').fadeIn(1500).removeClass('fade');
@@ -65,9 +66,10 @@ MathGame.prototype.displayNumber = function(){
     case 2:
       this.addNumber();
       $(".number-turn").text(this.cards[0]);
+      $(".number-turn").css("color", "blue");
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
-      $('.temp-carriage-return-class').text(this.carriageReturnPhase);
+      $(".temp-carriage-return-class").text(this.carriageReturnPhase);
 
       setTimeout(function () {
         $('div.fade').fadeIn(1500).removeClass('fade');
@@ -80,23 +82,36 @@ MathGame.prototype.displayNumber = function(){
       this.addNumber();
       this.correctAnswer = this.cards[0] + this.cards[2];
       $(".number-turn").text(this.cards[0]);
+      $(".number-turn").css("color", "white");
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
       $(".temp-correctanswer").text(this.correctAnswer);
       $('.temp-carriage-return-class').text(this.carriageReturnPhase);
+      $("#advance-cards").css({'visibility': 'hidden', 'opacity': '0'});
+      $("form").css("visibility", "visible"); //Enable
 
       this.carriageReturnPhase += 1;
+      gameTimer();
       break;
 
-      default:
-      $("#button").click(function(){
-        this.playerAnswer = $("#number").val();
-        $("#number").val('');
-      })
+    default:
+      var that = this;
+      if (this.playerAnswer == this.correctAnswer){
+        this.playerScore += 1;
+        this.addNumber();
+        this.removeNumber();
+        this.correctAnswer = this.cards[0] + this.cards[2];
+      } else {
+        this.addNumber();
+        this.removeNumber();
+        this.correctAnswer = this.cards[0] + this.cards[2];
+      }
+
+
 
         $('#form1').css({'visibility': 'visible', 'opacity': '1'});
 
-        // this.timerVal = setInterval(function(){
+        // g.timerVal = setInterval(function(){
         //   if (this.timerVal == 0){
         //     clearInterval(this.timerVal);
         //     $('.reponse').html("Player turn over");
@@ -113,25 +128,14 @@ MathGame.prototype.displayNumber = function(){
         //   }
         // }, 1000);
 
-        if (this.player1phase){
-          this.playerAnswer = $('#number').val();
 
-          if (this.playerAnswer == this.correctAnswer){
-            this.playerScore += 1;
-            this.addNumber();
-            this.removeNumber();
-            this.correctAnswer = this.cards[0] + this.cards[2];
-          } else {
-            this.addNumber();
-            this.removeNumber();
-            this.correctAnswer = this.cards[0] + this.cards[2];
-          }
-        }
+
+
         $(".number-turn").text(this.cards[0]);
         $(".temp-cardtoremember").text(this.cards[1]);
         $(".temp-cardtoadd").text(this.cards[2]);
         $(".temp-correctanswer").text(this.correctAnswer);
-        $(".js-score").text(this.playerScore);
+        $(".js-score").text(g.playerScore + " points");
         $('.temp-carriage-return-class').text(this.carriageReturnPhase);
 
       }
@@ -175,22 +179,52 @@ MathGame.prototype.displayNumber = function(){
 //still need to activate on keystroke and not page load
 //still need to change player turn state upon completion
 //still need to update player score upon completion
-/*  var i = 1;
+
+function gameTimer() {
+  var i = 10;
   var intervalId = setInterval(function () {
     this.timerVal = i;
 
 //    console.log(i);
-    $("#timer").text(this.timerVal.toFixed(2));
-    i+=0.01;
+    $("#timer").text(this.timerVal);
+    i--;
+//
+    if (i == -1) {
+//       g.player1phase = !g.player1phase;
+// //      $(this.player2phase).toggle();
 
-    if (i >= 5) {
-      g.player1phase = !g.player1phase;
-//      $(this.player2phase).toggle();
+     clearInterval(intervalId);
+     setScore();
+     g.cards = [];
 
-      clearInterval(intervalId);
+     this.carriageReturnPhase = 1;
+
     }
-  }, 10);*/
-//template 2 ends
+  }, 1000);
+}
+// template 2 ends
+
+function setScore(){
+  if (g.player1phase == true) {
+    g.player1Score = g.playerScore;
+    g.player1phase = false;
+    g.playerScore = 0;
+  } else {
+    g.player2Score = g.playerScore;
+  }
+}
+
+function winnerSet() {
+  if (g.player1Score > g.player2Score) {
+    g.winner = "Player 1";
+  } else if (g.player1Score < g.player2Score) {
+    g.winner = "Player 2";
+  } else if (g.player1Score == g.player2Score) {
+    g.winner = "It's a tie";
+  } else {
+    g.winner = "error in the code";
+  }
+}
 
 $('#playgame1').click(function(){
   $('.landing').css({'visibility': 'hidden', 'opacity': '0'});
@@ -198,10 +232,33 @@ $('#playgame1').click(function(){
 });
 
 $('#advance-cards').click(function(){
-    var that = this;
+    $("#number").focus();
     g.displayNumber();
   });
 
+$("#button").click(function(){
+  g.playerAnswer = $("#number").val();
+  $("#number").val('');
+  $("#number").focus();
+
+  g.displayNumber();
+  })
+
+$("#playgame1").mouseenter(function(){
+  $(this).css({'background-color': 'papayawhip'})
+});
+
+$("#playgame1").mouseleave(function(){
+  $(this).css({'background-color': '#ffffff'});
+});
+
+$("#playgame2").mouseenter(function(){
+  $(this).css({'background-color': 'papayawhip'})
+});
+
+$("#playgame2").mouseleave(function(){
+  $(this).css({'background-color': '#ffffff'});
+});
 
 //$(".timer").text(this.intervalId)
 
