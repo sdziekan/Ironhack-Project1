@@ -193,7 +193,18 @@ $("#button").click(function(){
   $("#number").focus();
 
   g.displayNumber();
-  })
+});
+
+$('body').keypress(function(e) {
+    if(e.which == 13) {
+      e.preventDefault();
+      g.playerAnswer = $("#number").val();
+      $("#number").val('');
+      $("#number").focus();
+
+      g.displayNumber();
+    }
+});
 
 //Effects to look nice
 $("#playgame1").mouseenter(function(){
@@ -205,7 +216,7 @@ $("#playgame1").mouseleave(function(){
 });
 
 $("#playgame2").mouseenter(function(){
-  $(this).css({'background-color': 'papayawhip'})
+  $(this).css({'background-color': 'red'})
 });
 
 $("#playgame2").mouseleave(function(){
