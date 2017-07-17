@@ -20,7 +20,7 @@ MathGame.prototype.addNumber = function() {
   this.cards.unshift(Math.floor(Math.random() * 10));
 };
 
-//Function removing last item in array
+//Function removing last item in cards[]
 MathGame.prototype.removeNumber = function() {
   this.cards.pop();
 };
@@ -39,10 +39,7 @@ MathGame.prototype.setPlayPhase = function() {
 
 };
 
-
-//display initial card => this.cardVisible
-//later change this to load after clicking a button "Click to start"
-
+//actions during game play phase
 MathGame.prototype.displayNumber = function(){
   var that = this;
   this.setPlayPhase();
@@ -55,6 +52,7 @@ MathGame.prototype.displayNumber = function(){
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
       $(".temp-carriage-return-class").text(this.carriageReturnPhase);
+      $("#advance-cards").text("Click for Second Card");
 
       setTimeout(function () {
         $('div.fade').fadeIn(1500).removeClass('fade');
@@ -70,6 +68,7 @@ MathGame.prototype.displayNumber = function(){
       $(".temp-cardtoremember").text(this.cards[1]);
       $(".temp-cardtoadd").text(this.cards[2]);
       $(".temp-carriage-return-class").text(this.carriageReturnPhase);
+      $("#advance-cards").text("Click to Start Game");
 
       setTimeout(function () {
         $('div.fade').fadeIn(1500).removeClass('fade');
@@ -107,91 +106,32 @@ MathGame.prototype.displayNumber = function(){
         this.correctAnswer = this.cards[0] + this.cards[2];
       }
 
-
-
         $('#form1').css({'visibility': 'visible', 'opacity': '1'});
-
-        // g.timerVal = setInterval(function(){
-        //   if (this.timerVal == 0){
-        //     clearInterval(this.timerVal);
-        //     $('.reponse').html("Player turn over");
-        //     $('#form1').css({'visibility': 'hidden', 'opacity': '0'});
-        //     player1phase = false;
-        //   }
-        //   else if (player1phase) {
-        //     this.timerVal--;
-        //     $('.timer').html(this.timerVal);
-        //   }
-        //   else {
-        //     clearInterval(this.timerVal);
-        //     $('#form1').css({'visibility': 'hidden', 'opacity': '0'});
-        //   }
-        // }, 1000);
-
-
-
-
         $(".number-turn").text(this.cards[0]);
         $(".temp-cardtoremember").text(this.cards[1]);
         $(".temp-cardtoadd").text(this.cards[2]);
         $(".temp-correctanswer").text(this.correctAnswer);
         $(".js-score").text(g.playerScore + " points");
         $('.temp-carriage-return-class').text(this.carriageReturnPhase);
-
       }
   };
 
 
-
-//Script for carriage return in phase1 and phase2
-// $(document).keydown(function(e) {
-//   switch(e.which) {
-//       case 13: // carriage return
-//         that.displaySecondNumber();
-//         break;
-//
-//       default: return; // exit this handler for other keys
-//     };
-//   });
-
-  // $(document).keydown(function(e) {
-  //   var that = this;
-  //
-  //   switch(e.which) {
-  //     case 13: // carriage return
-  //       if (that.carriageReturnPhase === 1) {
-  //           console.log('phase 1');
-  //           that.displayNumber();
-  //       } else {
-  //         console.log(g.carriageReturnPhase)
-  //       };
-  //     break;
-  //
-  //     default:
-  //     console.log('wtf?')
-  //     return; // exit this handler for other keys
-  //
-  //   };
-  // });
-
-
-//Timer
 //still need to activate on keystroke and not page load
 //still need to change player turn state upon completion
 //still need to update player score upon completion
 
+//Timer Function
 function gameTimer() {
   var i = 10;
   var intervalId = setInterval(function () {
     this.timerVal = i;
 
 //    console.log(i);
-    $("#timer").text(this.timerVal);
+    $("#timer").text("TIMER: "+this.timerVal);
     i--;
 //
     if (i == -1) {
-//       g.player1phase = !g.player1phase;
-// //      $(this.player2phase).toggle();
 
      clearInterval(intervalId);
      setScore();
@@ -202,8 +142,8 @@ function gameTimer() {
     }
   }, 1000);
 }
-// template 2 ends
 
+//Function to set Player score values after turn
 function setScore(){
   if (g.player1phase == true) {
     g.player1Score = g.playerScore;
@@ -214,6 +154,7 @@ function setScore(){
   }
 }
 
+//Function to determine winner
 function winnerSet() {
   if (g.player1Score > g.player2Score) {
     g.winner = "Player 1";
@@ -226,6 +167,7 @@ function winnerSet() {
   }
 }
 
+//Various functions to set acctions for button clicks
 $('#playgame1').click(function(){
   $('.landing').css({'visibility': 'hidden', 'opacity': '0'});
   $('.hidden').css({'visibility': 'visible', 'opacity': '1'});
@@ -244,6 +186,7 @@ $("#button").click(function(){
   g.displayNumber();
   })
 
+//Effects to look nice
 $("#playgame1").mouseenter(function(){
   $(this).css({'background-color': 'papayawhip'})
 });
@@ -257,39 +200,9 @@ $("#playgame2").mouseenter(function(){
 });
 
 $("#playgame2").mouseleave(function(){
-  $(this).css({'background-color': '#ffffff'});
+  $(this).css({'background-color': 'gray'});
 });
 
-//$(".timer").text(this.intervalId)
 
-
-
-
-    // hide this.cardVisible (fade out)
-    //   this.cardVisible = selectNumber()
-    // show this.cardVisible (fade in)
-    // hide this.cardToAdd[0]
-    // show this.cardToRemember
-    // press "Enter"
-    // generate this.cardVisible
-    // hide this.cardToRemember
-    // show this.cardVisible
-    // generate correctAnswer = cardToAdd + cardVisible
-    // reassign values this.cardToAdd = this.cardToRemember
-    //   - this.cardToRemember = this.cardVisible
-    //   - this.cardVisible = new random number
-    // var playerAnswer = player types a number and "Enter"
-    // if playerAnswer = correctAnswer, playerScore++
-
-
-
-
-
-
-
-
-
+//variable that I need to set for this game to work, but I don't fully understand why?
 var g = new MathGame();
-//console.log(g.generateNumber());
-
-//});
