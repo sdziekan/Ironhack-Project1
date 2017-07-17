@@ -33,7 +33,7 @@ body {
   flex-direction: row;
 }
 
-.temp-cardtoremember {
+/*.temp-cardtoremember {
   width: 200px;
   height: 100px;
   background-color: #d1ebed;
@@ -56,7 +56,7 @@ body {
   border: 1px solid black;
   border-radius: 5px;
   font-size: 36px;
-}
+}*/
 
 .press-enter {
   font-size: 24px;
@@ -96,12 +96,12 @@ body {
   visibility: hidden;
 }
 
-.temp-carriage-return-class {
+/*.temp-carriage-return-class {
   font-size: 24px;
   color: red;
   height: 100px;
   width: 100px;;
-}
+}*/
 
 .landing {
   display: flex;

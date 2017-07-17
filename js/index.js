@@ -123,7 +123,7 @@ MathGame.prototype.displayNumber = function(){
 
 //Timer Function
 function gameTimer() {
-  var i = 10;
+  var i = 30;
   var intervalId = setInterval(function () {
     this.timerVal = i;
 
@@ -135,13 +135,22 @@ function gameTimer() {
 
      clearInterval(intervalId);
      setScore();
+     scoreDisplay();
      g.cards = [];
 
      this.carriageReturnPhase = 1;
 
+
     }
   }, 1000);
 }
+
+//Function to display score
+function scoreDisplay () {
+     $(".winner-display").css('visibility', 'visible');
+     $(".winner-display").html('<h1>Your Score: </h1>').append(g.player1Score);
+};
+
 
 //Function to set Player score values after turn
 function setScore(){
